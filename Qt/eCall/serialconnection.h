@@ -17,7 +17,11 @@ public:
     bool isConnected() const;                                   // Kiểm tra trạng thái kết nối
 
 signals:
-    void statusUpdated(bool isConnected); // Phát tín hiệu khi trạng thái thay đổi
+    void statusUpdated(bool isConnected);                      // Phát tín hiệu khi trạng thái thay đổi
+    void dataReceived(const QByteArray &data);                 // Phát tín hiệu khi nhận dữ liệu
+
+private slots:
+    void readData();                                            // Xử lý dữ liệu nhận từ UART
 
 private:
     QSerialPort *serialPort;
