@@ -55,6 +55,6 @@ bool SerialConnection::isConnected() const
 
 void SerialConnection::readData()
 {
-    QByteArray data = serialPort->readAll(); // Đọc tất cả dữ liệu từ UART
-    emit dataReceived(data);                // Phát tín hiệu với dữ liệu nhận được
+    QByteArray data = serialPort->readAll();  // Đọc dữ liệu từ UART
+    emit dataReceived(data);                 // Phát tín hiệu với dữ liệu nhận được
 }
