@@ -55,22 +55,41 @@ void MainWindow::updateStatus(bool status)
 
 void MainWindow::processData(const QByteArray &data)
 {
-    qDebug() << "Received data:" << data;
+    // In dữ liệu thô nhận được để debug
+    qDebug() << "Raw Data Received:" << data.toHex();
 
-    QString receivedData(data);
-    QStringList parts = receivedData.trimmed().split(";");
+    // Kiểm tra nếu frame bắt đầu bằng 0xAA
+    if (data.size() >= 5 && static_cast<uint8_t>(data[0]) == 0xAA) {
+        uint8_t id = static_cast<uint8_t>(data[1]); // ID
+        uint8_t dlc = static_cast<uint8_t>(data[2]); // DLC
 
-    if (parts.size() == 2) {
-        // Xử lý giá trị tốc độ
-        if (parts[0].startsWith("SPEED:")) {
-            QString speedValue = parts[0].mid(6);
-            speedLabel->setText(QString("Speed: %1 km/h").arg(speedValue.trimmed()));
+        if (data.size() >= 3 + dlc + 1) { // Đảm bảo frame có đủ dữ liệu
+            QByteArray payload = data.mid(3, dlc); // Lấy payload
+            uint8_t crc = static_cast<uint8_t>(data[3 + dlc]); // Lấy CRC
+
+            // Kiểm tra CRC
+            uint8_t calculated_crc = 0;
+            for (int i = 0; i < 3 + dlc; i++) {
+                calculated_crc ^= static_cast<uint8_t>(data[i]);
+            }
+
+            if (calculated_crc == crc) {
+                // Phân tích payload dựa trên ID
+                if (id == 0x01) { // Speed
+                    int speed = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+                    speedLabel->setText(QString("Speed: %1 km/h").arg(speed));
+                } else if (id == 0x02) { // Temperature
+                    int temperature = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+                    temperatureLabel->setText(QString("Temperature: %1 °C").arg(temperature));
+                }
+            } else {
+                qDebug() << "CRC mismatch!";
+            }
+        } else {
+            qDebug() << "Incomplete frame!";
         }
-
-        // Xử lý giá trị nhiệt độ
-        if (parts[1].startsWith("TEMP:")) {
-            QString tempValue = parts[1].mid(5);
-            temperatureLabel->setText(QString("Temperature: %1 °C").arg(tempValue.trimmed()));
-        }
+    } else {
+        qDebug() << "Invalid frame!";
     }
 }
+

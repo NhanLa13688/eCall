@@ -23,5 +23,7 @@ private:
 
     QLabel *speedLabel;                           // Hiển thị giá trị tốc độ
     QLabel *temperatureLabel;                    // Hiển thị giá trị nhiệt độ
-    QLabel *statusLabel;
-}
+    QLabel *statusLabel;                         // Hiển thị trạng thái kết nối
+};
+
+#endif // MAINWINDOW_H
