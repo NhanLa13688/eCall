@@ -4,8 +4,11 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), serialConnection(new SerialConnection(this)), isPortOpen(false)
 {
+    // Đặt màu nền cho ứng dụng
+    this->setStyleSheet("backgroup-color: blue;");
+
     // Thiết lập giao diện
-    setFixedSize(400, 250);
+    setFixedSize(1200, 600);
 
     // Tạo QLabel để hiển thị tốc độ
     speedLabel = new QLabel("Speed: 0 km/h", this);
