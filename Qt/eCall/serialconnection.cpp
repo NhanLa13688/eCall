@@ -4,6 +4,8 @@
 SerialConnection::SerialConnection(QObject *parent)
     : QObject(parent), serialPort(new QSerialPort(this)), connected(false)
 {
+    // Kết nối tín hiệu khi dữ liệu UART sẵn sàng để đọc
+    connect(serialPort, &QSerialPort::readyRead, this, &SerialConnection::readData);
 }
 
 SerialConnection::~SerialConnection()
@@ -28,10 +30,10 @@ bool SerialConnection::openConnection(const QString &portName, int baudRate)
     if (serialPort->open(QIODevice::ReadWrite)) {
         connected = true;
         emit statusUpdated(true);
-        qDebug() << "Port opened successfully!";
+        qDebug() << "UART port opened successfully!";
         return true;
     } else {
-        qDebug() << "Failed to open port:" << serialPort->errorString();
+        qDebug() << "Failed to open UART port:" << serialPort->errorString();
         return false;
     }
 }
@@ -42,11 +44,17 @@ void SerialConnection::closeConnection()
         serialPort->close();
         connected = false;
         emit statusUpdated(false);
-        qDebug() << "Port closed successfully!";
+        qDebug() << "UART port closed.";
     }
 }
 
 bool SerialConnection::isConnected() const
 {
     return connected;
+}
+
+void SerialConnection::readData()
+{
+    QByteArray data = serialPort->readAll(); // Đọc tất cả dữ liệu từ UART
+    emit dataReceived(data);                // Phát tín hiệu với dữ liệu nhận được
 }
