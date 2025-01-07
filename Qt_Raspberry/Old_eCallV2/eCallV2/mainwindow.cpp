@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->sosButton, &QPushButton::clicked, this, &MainWindow::handleSOS);
 
     // Bắt đầu timer, cập nhật mỗi 100ms
-    timer->start(250);
+    timer->start(1250);
 }
 
 MainWindow::~MainWindow()
