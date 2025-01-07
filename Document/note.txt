@@ -11,5 +11,5 @@ Setup git:
 - git config --global --list
 - ssh-keygen -t rsa -b 4096 -C "lathanhnhan20797@gmail.com"- 
 - cat ~/.ssh/id_rsa.pub
-
-
+- git remote set-url origin git@github.com:NhanLa13688/eCall.git
+- serial port: sudo apt install libqt5serialport5-dev
