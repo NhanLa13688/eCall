@@ -1,3 +1,15 @@
 PPT: https://www.canva.com/design/DAGaEa-t6uM/ZQK4IN5ypunf0RMpzNSQlg/edit
 Block Diagram: https://app.diagrams.net/#G1dESoyervqv-rK-knmrP2Rk7ViaN4Z77f#%7B%22pageId%22%3A%22MHBTvXOER6DHxT3fxuIy%22%7D
 Hardware Design: https://app.diagrams.net/#G16diqoMhOhbo4cDlYeTKlEBn3m1zwWge0#%7B%22pageId%22%3A%22pfRpIeqCVIyT-Qr6HnFp%22%7D
+setup QT on Raspberry:
+- sudo apt install qt5-qmake qtbase5-dev qtchooser qt5-qmake-bin qtbase5-dev-tools
+- qmake --version
+- sudo apt install qtcreator
+Setup git:
+- git config --global user.name "NhanLa13688"
+- git config --global user.email "lathanhnhan20797@gmail.com"
+- git config --global --list
+- ssh-keygen -t rsa -b 4096 -C "lathanhnhan20797@gmail.com"- 
+- cat ~/.ssh/id_rsa.pub
+
+
