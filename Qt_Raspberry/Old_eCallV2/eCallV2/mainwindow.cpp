@@ -229,7 +229,7 @@ void MainWindow::handleSOS()
 
             // Tạo JSON command để gửi tới server
             QJsonObject command;
-            command["command"] = "button_pressed"; // Gửi lệnh SOS
+            command["command"] = "ON"; // Gửi lệnh SOS
             QJsonDocument doc(command);
             QByteArray data = doc.toJson();
 

@@ -25,7 +25,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QLabel *odo;
+    QLabel *label;
     QLabel *speedLabel;
     QLabel *PbatteryLabel;
     QLabel *kmhLabel;
@@ -59,11 +59,11 @@ public:
         MainWindow->resize(693, 458);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        odo = new QLabel(centralWidget);
-        odo->setObjectName(QStringLiteral("odo"));
-        odo->setGeometry(QRect(0, -10, 691, 381));
-        odo->setPixmap(QPixmap(QString::fromUtf8("../odo.jpg")));
-        odo->setScaledContents(true);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(0, -10, 691, 381));
+        label->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/odo.jpg")));
+        label->setScaledContents(true);
         speedLabel = new QLabel(centralWidget);
         speedLabel->setObjectName(QStringLiteral("speedLabel"));
         speedLabel->setGeometry(QRect(314, 130, 61, 51));
@@ -213,7 +213,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        odo->setText(QString());
+        label->setText(QString());
         speedLabel->setText(QApplication::translate("MainWindow", "0", nullptr));
         PbatteryLabel->setText(QApplication::translate("MainWindow", "0", nullptr));
         kmhLabel->setText(QApplication::translate("MainWindow", "Km/h", nullptr));

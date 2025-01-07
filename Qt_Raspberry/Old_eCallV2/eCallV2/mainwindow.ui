@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="odo">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -27,7 +27,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../odo.jpg</pixmap>
+     <pixmap resource="resource.qrc">:/new/prefix1/odo.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -521,6 +521,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
