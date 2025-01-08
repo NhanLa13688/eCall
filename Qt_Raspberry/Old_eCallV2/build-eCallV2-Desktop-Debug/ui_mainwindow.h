@@ -48,6 +48,7 @@ public:
     QLabel *ecoLabel;
     QLabel *smartLabel;
     QLabel *sportLabel;
+    QLabel *statusLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -171,7 +172,7 @@ public:
         decLabel->setFont(font7);
         sosButton = new QPushButton(centralWidget);
         sosButton->setObjectName(QStringLiteral("sosButton"));
-        sosButton->setGeometry(QRect(480, 310, 61, 31));
+        sosButton->setGeometry(QRect(420, 310, 61, 31));
         sosButton->setFont(font7);
         settempLabel = new QLabel(centralWidget);
         settempLabel->setObjectName(QStringLiteral("settempLabel"));
@@ -193,6 +194,9 @@ public:
         sportLabel->setObjectName(QStringLiteral("sportLabel"));
         sportLabel->setGeometry(QRect(20, 160, 68, 22));
         sportLabel->setFont(font6);
+        statusLabel = new QLabel(centralWidget);
+        statusLabel->setObjectName(QStringLiteral("statusLabel"));
+        statusLabel->setGeometry(QRect(417, 261, 241, 41));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -236,6 +240,7 @@ public:
         ecoLabel->setText(QString());
         smartLabel->setText(QString());
         sportLabel->setText(QString());
+        statusLabel->setText(QString());
     } // retranslateUi
 
 };

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tempLabel->setText(QString::number(temp) + " °C");
     ui->tempLabel->setStyleSheet("color: white; font-size: 18px;");
     ui->sosButton->setStyleSheet("background-color: red; color: black; font-size: 18px;");
+
+    ui->statusLabel->setText("Connection Successfull");
+    ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
 
     connect(timer, &QTimer::timeout, this, &MainWindow::updateSpeed);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePbattery);
@@ -205,24 +209,16 @@ void MainWindow::delay( int millseconds)
 void MainWindow::handleSOS()
 {
 
-
-//    void updateECO();
-   // static bool isSOSActive = false; // Biến để lưu trạng thái hiện tại
-
-//    if (isSOSActive) {
-        // Trạng thái tắt: Đổi màu nút trở lại mặc định
-  //      ui->sosButton->setStyleSheet("background-color: gray; color: black; font-size: 18px;");
-  //  } else {
-        // Trạng thái bật: Đổi màu nút sang đỏ
-  //osButton->setStyleSheet("background-color: red; color: white; font-size: 18px;");
-  //  }
-        qDebug() << "Da Nhan SOS";
+        qDebug() << "Button --> SOS";
         ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
 
         QTcpSocket socket; // Sử dụng QTcpSocket cho giao tiếp TCP
-            socket.connectToHost("192.168.137.22", 65432); // Địa chỉ IP và cổng của server
+            socket.connectToHost("192.168.137.20", 65432); // Địa chỉ IP và cổng của server
 
             if (!socket.waitForConnected(3000)) {
+
+                ui->statusLabel->setText("Failed to connect Server");
+                ui->statusLabel->setStyleSheet("color: red; font-size: 16px;");
                 qDebug() << "Failed to connect to server.";
                 return;
             }
@@ -237,17 +233,28 @@ void MainWindow::handleSOS()
             socket.write(data);
             if (!socket.waitForBytesWritten(3000)) {
                 qDebug() << "Failed to send data to server.";
+                ui->statusLabel->setText("SOS signal sent Failed");
+                ui->statusLabel->setStyleSheet("color: red; font-size: 16px;");
+                ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
+
             } else {
                 qDebug() << "SOS command sent to server.";
+                ui->statusLabel->setText("SOS signal sent ...");
+                ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
+                ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
             }
 
-            // Đọc phản hồi từ server (nếu có)
+            // Đọc phản hồi từ server
             if (socket.waitForReadyRead(3000)) {
                 QByteArray response = socket.readAll();
                 QJsonDocument responseDoc = QJsonDocument::fromJson(response);
                 QJsonObject responseObj = responseDoc.object();
 
                 qDebug() << "Response from server:" << responseObj;
+                ui->statusLabel->setText("SOS signal sent Successfully");
+                ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
+                ui->sosButton->setStyleSheet("background-color: red; color: black; font-size: 18px;");
+
             } else {
                 qDebug() << "No response from server.";
             }
