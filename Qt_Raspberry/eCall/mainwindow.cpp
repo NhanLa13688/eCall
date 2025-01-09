@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(serialConnection, &SerialConnection::dataReceived, this, &MainWindow::processData);
 
     // Tự động mở kết nối UART khi ứng dụng khởi chạy
-    if (serialConnection->openConnection("/dev/ttyUSB0", 115200)) {
+    if (serialConnection->openConnection("/dev/serial0", 115200)) {
         qDebug() << "Attempting to auto-connect to UART...";
     }
 }

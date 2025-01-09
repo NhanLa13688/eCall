@@ -163,7 +163,7 @@ void MainWindow::updateTime()
     ui->timeLabel->setAlignment(Qt::AlignCenter);
 
     // Thay đổi màu sắc và kiểu chữ nếu cần
-    ui->timeLabel->setStyleSheet("color: white; font-size: 18px;");
+    ui->timeLabel->setStyleSheet("color: white; font-size: 18px; ");
 }
 void MainWindow::updateDate()
 {
@@ -213,12 +213,12 @@ void MainWindow::handleSOS()
         ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
 
         QTcpSocket socket; // Sử dụng QTcpSocket cho giao tiếp TCP
-            socket.connectToHost("192.168.137.20", 65432); // Địa chỉ IP và cổng của server
+            socket.connectToHost("192.168.137.22", 65432); // Địa chỉ IP và cổng của server
 
             if (!socket.waitForConnected(3000)) {
 
                 ui->statusLabel->setText("Failed to connect Server");
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px;");
+                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
                 qDebug() << "Failed to connect to server.";
                 return;
             }
@@ -233,14 +233,14 @@ void MainWindow::handleSOS()
             socket.write(data);
             if (!socket.waitForBytesWritten(3000)) {
                 qDebug() << "Failed to send data to server.";
-                ui->statusLabel->setText("SOS signal sent Failed");
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px;");
+                ui->statusLabel->setText("SOS sent Failed");
+                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
                 ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
 
             } else {
                 qDebug() << "SOS command sent to server.";
-                ui->statusLabel->setText("SOS signal sent ...");
-                ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
+                ui->statusLabel->setText("SOS sent ...");
+                ui->statusLabel->setStyleSheet("color: green; font-size: 16px; bold;");
                 ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
             }
 
@@ -251,12 +251,16 @@ void MainWindow::handleSOS()
                 QJsonObject responseObj = responseDoc.object();
 
                 qDebug() << "Response from server:" << responseObj;
-                ui->statusLabel->setText("SOS signal sent Successfully");
-                ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
+                ui->statusLabel->setText("SOS sent Successfully");
+                ui->statusLabel->setStyleSheet("color: green; font-size: 16px; bold;");
                 ui->sosButton->setStyleSheet("background-color: red; color: black; font-size: 18px;");
 
-            } else {
-                qDebug() << "No response from server.";
+            }
+            else
+            {
+               qDebug() << "No response from server.";
+               ui->statusLabel->setText("SOS sent Failed");
+               ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
             }
 
             socket.disconnectFromHost();
