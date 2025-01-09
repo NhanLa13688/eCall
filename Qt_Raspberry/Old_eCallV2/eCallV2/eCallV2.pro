@@ -3,7 +3,7 @@
 # Project created by QtCreator 2024-12-03T15:59:29
 #
 #-------------------------------------------------
-
+QT       += core gui widgets serialport
 QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -26,10 +26,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        serialconnection.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        serialconnection.h
 
 FORMS += \
         mainwindow.ui

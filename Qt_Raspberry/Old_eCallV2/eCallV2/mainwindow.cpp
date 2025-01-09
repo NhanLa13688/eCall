@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QObject>
+#include <QSerialPort>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,12 +23,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->readyLabel->setStyleSheet("color: green;");
     ui->tempLabel->setText(QString::number(temp) + " °C");
     ui->tempLabel->setStyleSheet("color: white; font-size: 18px;");
-    ui->sosButton->setStyleSheet("background-color: red; color: black; font-size: 18px;");
+    ui->sosButton->setStyleSheet("background-color: blue; color: black; font-size: 18px;");
 
     ui->statusLabel->setText("Connection Successfull");
     ui->statusLabel->setStyleSheet("color: green; font-size: 16px;");
+    ui->serialLabel->setText("Waitting ... ");
+    ui->serialLabel->setStyleSheet("color: green; font-size: 16px;");
 
-    connect(timer, &QTimer::timeout, this, &MainWindow::updateSpeed);
+    //connect(timer, &QTimer::timeout, this, &MainWindow::updateSpeed);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePbattery);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePdistance);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePfuel);
@@ -45,12 +49,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->decLabel, &QPushButton::clicked, this, &MainWindow::updateDec);
     connect(ui->sosButton, &QPushButton::clicked, this, &MainWindow::handleSOS);
 
+    // serial uart read speed to STM
+   // connect(serialConnection, &SerialConnection::dataReceived, this, &MainWindow::processData);
+    
+
+
     // Bắt đầu timer, cập nhật mỗi 100ms
-<<<<<<< HEAD
     timer->start(1250);
-=======
-    timer->start(1550);
->>>>>>> 8578c456ffa1a26ae7d0d4b82dbae737741e4a0e
+
 }
 
 MainWindow::~MainWindow()
@@ -325,14 +331,44 @@ void MainWindow::updateSport()
     // Chuyển sang trạng thái tiếp theo
     currentIndex = (currentIndex + 1) % states.size(); // Quay vòng trạng thái
 }
-//void MainWindow::changeButtonColor() {
-//    static bool isRed = false; // Trạng thái hiện tại của màu nút
 
-//    if (isRed) {
-//        ui->sosButton->setStyleSheet("background-color: gray; color: black; font-size: 18px;");
-//    } else {
-//        ui->sosButton->setStyleSheet("background-color: red; color: white; font-size: 18px;");
-//    }
+void MainWindow::processData(const QByteArray &data)
+{
+    // In dữ liệu thô nhận được để debug
+    qDebug() << "Raw Data Received:" << data.toHex();
 
-//    isRed = !isRed; // Đổi trạng thái
-//}
+    // Kiểm tra nếu frame bắt đầu bằng 0xAA
+    if (data.size() >= 5 && static_cast<uint8_t>(data[0]) == 0xAA) {
+        uint8_t id = static_cast<uint8_t>(data[1]); // ID
+        uint8_t dlc = static_cast<uint8_t>(data[2]); // DLC
+
+        if (data.size() >= 3 + dlc + 1) { // Đảm bảo frame có đủ dữ liệu
+            QByteArray payload = data.mid(3, dlc); // Lấy payload
+            uint8_t crc = static_cast<uint8_t>(data[3 + dlc]); // Lấy CRC
+
+            // Kiểm tra CRC
+            uint8_t calculated_crc = 0;
+            for (int i = 0; i < 3 + dlc; i++) {
+                calculated_crc ^= static_cast<uint8_t>(data[i]);
+            }
+
+            if (calculated_crc == crc) {
+                // Phân tích payload dựa trên ID
+                if (id == 0x01) { // Speed
+                    int speed = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+                    ui->speedLabel->setText(QString("Speed: %1 km/h").arg(speed));
+                } else if (id == 0x02) { // Temperature
+                   // int temperature = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+                   // temperatureLabel->setText(QString("Temperature: %1 °C").arg(temperature));
+                }
+            } else {
+                qDebug() << "CRC mismatch!";
+            }
+        } else {
+            qDebug() << "Incomplete frame!";
+        }
+    } else {
+        qDebug() << "Invalid frame!";
+    }
+}
+

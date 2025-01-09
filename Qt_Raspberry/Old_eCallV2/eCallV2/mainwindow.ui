@@ -509,7 +509,20 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>SOS ..</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="serialLabel">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>60</y>
+      <width>141</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>serial uart</string>
     </property>
    </widget>
   </widget>
@@ -519,7 +532,7 @@
      <x>0</x>
      <y>0</y>
      <width>693</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
