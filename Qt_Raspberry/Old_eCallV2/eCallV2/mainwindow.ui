@@ -503,7 +503,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>serial uart</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="bkodo">

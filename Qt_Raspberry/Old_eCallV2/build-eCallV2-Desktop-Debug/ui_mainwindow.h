@@ -278,7 +278,7 @@ public:
         smartLabel->setText(QString());
         sportLabel->setText(QString());
         statusLabel->setText(QString());
-        serialLabel->setText(QApplication::translate("MainWindow", "serial uart", nullptr));
+        serialLabel->setText(QString());
         bkodo->setText(QString());
         tempMCLabel->setText(QApplication::translate("MainWindow", "-- \302\260C", nullptr));
     } // retranslateUi
