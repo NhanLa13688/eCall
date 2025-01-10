@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'serialconnection.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "../eCallV2/serialconnection.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'serialconnection.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.15.3. It"
+#error "This file was generated using the moc from 5.11.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -49,7 +48,7 @@ QT_MOC_LITERAL(6, 62, 8) // "readData"
 static const uint qt_meta_data_SerialConnection[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -79,8 +78,8 @@ static const uint qt_meta_data_SerialConnection[] = {
 void SerialConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<SerialConnection *>(_o);
-        (void)_t;
+        SerialConnection *_t = static_cast<SerialConnection *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->statusUpdated((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 1: _t->dataReceived((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
@@ -106,14 +105,10 @@ void SerialConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject SerialConnection::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_SerialConnection.data,
-    qt_meta_data_SerialConnection,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+QT_INIT_METAOBJECT const QMetaObject SerialConnection::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_SerialConnection.data,
+      qt_meta_data_SerialConnection,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *SerialConnection::metaObject() const
@@ -149,14 +144,14 @@ int SerialConnection::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void SerialConnection::statusUpdated(bool _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
 void SerialConnection::dataReceived(const QByteArray & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_WARNING_POP

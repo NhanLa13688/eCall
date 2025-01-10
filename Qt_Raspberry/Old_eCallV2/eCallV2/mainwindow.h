@@ -11,6 +11,7 @@
 #include <json.hpp>
 #include <QDebug>
 #include <QEventLoop>
+#include "fstream"
 
 #include <iostream>
 #include <string>
@@ -71,8 +72,12 @@ private:
     int fuel;
     int avgspeed;
     int temp;
+    int tempMC;
 
     QTimer *timer; // Timer để cập nhật tốc độ
+
+    float getCPUTemperature();
+    void updateTemperature();
 
 };
 
