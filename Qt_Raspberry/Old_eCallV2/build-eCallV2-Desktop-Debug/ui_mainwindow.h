@@ -50,6 +50,7 @@ public:
     QLabel *statusLabel;
     QLabel *serialLabel;
     QLabel *bkodo;
+    QLabel *tempMCLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -202,6 +203,12 @@ public:
         bkodo->setGeometry(QRect(-3, 1, 691, 371));
         bkodo->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/odo.jpg")));
         bkodo->setScaledContents(true);
+        tempMCLabel = new QLabel(centralWidget);
+        tempMCLabel->setObjectName(QStringLiteral("tempMCLabel"));
+        tempMCLabel->setGeometry(QRect(82, 61, 91, 30));
+        QFont font8;
+        font8.setPointSize(18);
+        tempMCLabel->setFont(font8);
         MainWindow->setCentralWidget(centralWidget);
         bkodo->raise();
         speedLabel->raise();
@@ -228,6 +235,7 @@ public:
         sportLabel->raise();
         statusLabel->raise();
         serialLabel->raise();
+        tempMCLabel->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 699, 28));
@@ -269,9 +277,10 @@ public:
         ecoLabel->setText(QString());
         smartLabel->setText(QString());
         sportLabel->setText(QString());
-        statusLabel->setText(QApplication::translate("MainWindow", "SOS ..", nullptr));
+        statusLabel->setText(QString());
         serialLabel->setText(QApplication::translate("MainWindow", "serial uart", nullptr));
         bkodo->setText(QString());
+        tempMCLabel->setText(QApplication::translate("MainWindow", "-- \302\260C", nullptr));
     } // retranslateUi
 
 };

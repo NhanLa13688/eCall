@@ -490,7 +490,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>SOS ..</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="serialLabel">
@@ -528,6 +528,24 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="tempMCLabel">
+    <property name="geometry">
+     <rect>
+      <x>82</x>
+      <y>61</y>
+      <width>91</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>-- °C</string>
+    </property>
+   </widget>
    <zorder>bkodo</zorder>
    <zorder>speedLabel</zorder>
    <zorder>PbatteryLabel</zorder>
@@ -553,6 +571,7 @@
    <zorder>sportLabel</zorder>
    <zorder>statusLabel</zorder>
    <zorder>serialLabel</zorder>
+   <zorder>tempMCLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

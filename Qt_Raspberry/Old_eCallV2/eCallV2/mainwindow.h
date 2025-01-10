@@ -72,6 +72,7 @@ private:
     int fuel;
     int avgspeed;
     int temp;
+    int tempMC;
 
     QTimer *timer; // Timer để cập nhật tốc độ
 
