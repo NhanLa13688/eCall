@@ -1,11 +1,24 @@
 #include "mainwindow.h"
 #include <QDebug>
+#include <QPalette>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), serialConnection(new SerialConnection(this)), isPortOpen(false)
 {
+    // Thiết lập hình nền
+    QPixmap backgroup(":/resources/odo.jpg"); 
+    if (backgroup.isNull())
+    {
+        qDebug() << "Failed to load background image !";
+    }
+    backgroup = backgroup.scaled(this->size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, backgroup);
+    this->setPalette(palette);
+
     // Đặt màu nền cho ứng dụng
-    this->setStyleSheet("backgroup-color: blue;");
+    //this->setStyleSheet("backgroup-color: blue;");
 
     // Thiết lập giao diện
     setFixedSize(1200, 600);
@@ -13,12 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     // Tạo QLabel để hiển thị tốc độ
     speedLabel = new QLabel("Speed: 0 km/h", this);
     speedLabel->setGeometry(50, 50, 300, 30);
-    speedLabel->setStyleSheet("font-size: 18px; font-weight: bold;");
+    speedLabel->setStyleSheet("font-size: 18px; font-weight: bold; color: blue;");
 
     // Tạo QLabel để hiển thị nhiệt độ
     temperatureLabel = new QLabel("Temperature: 0 °C", this);
     temperatureLabel->setGeometry(50, 100, 300, 30);
-    temperatureLabel->setStyleSheet("font-size: 18px; font-weight: bold;");
+    temperatureLabel->setStyleSheet("font-size: 18px; font-weight: bold; color: blue;");
 
     // Tạo QLabel để hiển thị trạng thái kết nối
     statusLabel = new QLabel("Status: Disconnected", this);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring eCall</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <!-- Logo for title -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5958/5958878.png" type="image/png">
+</head>
+<body>
+    <h1>ECall Alarm Receiving Server Monitoring System</h1>
+    <div class="container">
+        <div class="left-section">
+            <h2>Receive the requested:</h2>
+            <ul class="info-list">
+                <!-- Phần dữ liệu chính -->
+                <li><strong>VIN ID Address:</strong> <span id="vin_id">Waiting for data...</span></li>
+                <li><strong>IP Address:</strong> <span id="ip-address">Waiting for data...</span></li>
+                <li><strong>Latitude:</strong> <span id="latitude">Waiting for data...</span></li>
+                <li><strong>Longitude:</strong> <span id="longitude">Waiting for data...</span></li>
+            </ul>
+            <div class="map">
+                <iframe id="map-frame" 
+                        src="https://maps.google.com/maps?q=0,0&z=2&output=embed" 
+                        width="100%" height="400">
+                </iframe>
+            </div>
+            <table id="client-data-table">
+                <thead>
+                    <tr>
+                        <th>VIN ID Address</th>
+                        <th>IP Address</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Timestamp</th>
+                        <th>Map</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="client-data-body"></tbody>
+            </table>
+            <div class="pagination-controls">
+                <button id="requested-prev-page" onclick="prevRequestedPage()" disabled>Previous</button>
+                <span id="requested-page-info">Page 1</span>
+                <button id="requested-next-page" onclick="nextRequestedPage()">Next</button>
+            </div>
+        </div>
+    
+        <div class="right-section">
+            <div class="confirm-history">
+                <h2 style="text-align: center;">Confirm History</h2>
+                <div class="filter-section">
+                    <label for="filter-date">Filter by Date:</label>
+                    <input type="date" id="filter-date" onchange="filterConfirmHistoryByDate()">
+                </div>
+                <div>
+                    <table id="confirm-history-table">
+                        <thead>
+                            <tr>
+                                <th>VIN ID</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="confirm-history-body"></tbody>
+                    </table>
+                </div>
+                <div id="pagination-controls">
+                    <button id="prev-page" onclick="prevPage()" disabled>Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+        
+            <div class="chart-section">
+                <h2>eCall Analysis Chart</h2>
+                <div class="filter-chart">
+                    <label for="chart-filter-date">Filter by Date:</label>
+                    <input type="date" id="chart-filter-date" onchange="updateChartData()">
+                </div>
+                <canvas id="statChart" width="400" height="200"></canvas>
+            </div>
+        </div>            
+
+    </div>
+    
+</body>
+</html>
