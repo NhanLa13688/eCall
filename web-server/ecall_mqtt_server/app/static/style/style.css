@@ -1,0 +1,272 @@
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    color: green; /* Màu chữ */
+    font-weight: bold;
+    text-transform: uppercase; /* In hoa chữ */
+    left: 20%; /* Đẩy sang phải 50% chiều rộng màn hình */
+    text-align: center; /* Căn giữa nội dung nếu có nhiều dòng */
+}
+
+#show-data-btn {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#show-data-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+#client-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#client-data-table th, #client-data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#client-data-table th {
+    background-color: #f2f2f2;
+}
+
+
+
+td:last-child {
+    text-align: center; /* Căn giữa theo chiều ngang */
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+
+.confirm-btn {
+    background-color: #ff0000; /* Màu nền */
+    border: none; /* Xóa viền */
+    color: white; /* Màu chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    font-size: 14px; /* Kích thước chữ */
+    border-radius: 5px; /* Bo tròn góc */
+    cursor: pointer; /* Hiển thị con trỏ khi hover */
+    transition: background-color 0.3s; /* Hiệu ứng hover */
+}
+
+.confirm-btn:hover {
+    background-color: green; /* Màu nền khi hover */
+}
+
+/* Hiệu ứng chuyển động */
+.highlight {
+    animation: highlight-animation 15s ease-in-out;
+}
+
+@keyframes highlight-animation {
+    0% {
+        background-color: yellow;
+    }
+    50% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: yellow;
+    }
+}
+
+.new-entry {
+    animation: new-entry-animation 15s ease-in-out;
+}
+
+@keyframes new-entry-animation {
+    0% {
+        background-color: red;
+        color: white;
+    }
+    50% {
+        background-color: transparent;
+        color: red;
+    }
+    100% {
+        background-color: red;
+        color: white;
+    }
+}
+
+
+
+#confirm-history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#confirm-history-table th, #confirm-history-table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+}
+
+#confirm-history-table th {
+    background-color: #f2f2f2;
+}
+
+.confirm-history::-webkit-scrollbar {
+    width: 8px; /* Chiều rộng thanh cuộn */
+}
+
+.confirm-history::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu thanh cuộn */
+    border-radius: 4px; /* Bo tròn góc thanh cuộn */
+}
+
+.confirm-history::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Màu khi hover thanh cuộn */
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1%; /* Tạo khoảng cách giữa hai phần */
+}
+
+.left-section {
+    width: 70%; /* Phần Receive the requested chiếm 70% */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column; /* Hiển thị nội dung theo cột */
+    gap: 20px; /* Khoảng cách giữa Confirm History và Biểu đồ */
+    width: 28%;
+    margin-left: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.confirm-history, .chart-section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.confirm-history {
+    flex-grow: 1;
+    height: 300px; /* Cố định chiều cao */
+    overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+#pagination-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#pagination-controls button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#pagination-controls button:hover {
+    background-color: #e0e0e0;
+}
+
+#pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pagination-controls span {
+    font-weight: bold;
+}
+
+.pagination-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+    background-color: #e0e0e0;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-controls span {
+    font-weight: bold;
+}
+
+.filter-section {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+#filter-date {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.chart-section {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.chart-section canvas {
+    max-width: 100%;
+    height: auto;
+}
+
