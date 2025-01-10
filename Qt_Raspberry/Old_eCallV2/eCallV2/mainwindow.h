@@ -11,6 +11,7 @@
 #include <json.hpp>
 #include <QDebug>
 #include <QEventLoop>
+#include "fstream"
 
 #include <iostream>
 #include <string>
@@ -21,7 +22,7 @@
 #include <QTcpSocket>     // Để sử dụng QTcpSocket
 #include <QJsonObject>    // Để tạo JSON object
 #include <QJsonDocument>  // Để chuyển đổi JSON object thành QByteArray
-
+#include "serialconnection.h"
 
 using json = nlohmann::json;
 
@@ -58,6 +59,9 @@ private slots:
     void delay(int millseconds);
     //void changeButtonColor();
 
+    // Serial
+    void processData(const QByteArray &data);
+
 
 private:
     Ui::MainWindow *ui;
@@ -70,6 +74,10 @@ private:
     int temp;
 
     QTimer *timer; // Timer để cập nhật tốc độ
+
+    float getCPUTemperature();
+    void updateTemperature();
+
 };
 
 #endif // MAINWINDOW_H

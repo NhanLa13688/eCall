@@ -6,33 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>458</height>
+    <width>699</width>
+    <height>445</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>-10</y>
-      <width>691</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="resource.qrc">:/new/prefix1/odo.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="speedLabel">
     <property name="geometry">
      <rect>
@@ -509,16 +490,76 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>SOS ..</string>
     </property>
    </widget>
+   <widget class="QLabel" name="serialLabel">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>60</y>
+      <width>141</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>serial uart</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bkodo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>-3</x>
+      <y>1</y>
+      <width>691</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resource.qrc">:/new/prefix1/odo.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>bkodo</zorder>
+   <zorder>speedLabel</zorder>
+   <zorder>PbatteryLabel</zorder>
+   <zorder>kmhLabel</zorder>
+   <zorder>batteryLabel</zorder>
+   <zorder>PdistanceLabel</zorder>
+   <zorder>distancLabel</zorder>
+   <zorder>fuelLabel</zorder>
+   <zorder>avgspeedLabel</zorder>
+   <zorder>PfuelLabel</zorder>
+   <zorder>PavgspeedLabel</zorder>
+   <zorder>readyLabel</zorder>
+   <zorder>timeLabel</zorder>
+   <zorder>dateLabel</zorder>
+   <zorder>tempLabel</zorder>
+   <zorder>incLabel</zorder>
+   <zorder>decLabel</zorder>
+   <zorder>sosButton</zorder>
+   <zorder>settempLabel</zorder>
+   <zorder>absLabel</zorder>
+   <zorder>ecoLabel</zorder>
+   <zorder>smartLabel</zorder>
+   <zorder>sportLabel</zorder>
+   <zorder>statusLabel</zorder>
+   <zorder>serialLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>693</width>
+     <width>699</width>
      <height>28</height>
     </rect>
    </property>

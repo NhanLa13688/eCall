@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../eCallV2 -I. -isystem /usr/include/arm-linux-gnueabihf/qt5 -isystem /usr/include/arm-linux-gnueabihf/qt5/QtWidgets -isystem /usr/include/arm-linux-gnueabihf/qt5/QtGui -isystem /usr/include/arm-linux-gnueabihf/qt5/QtNetwork -isystem /usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I. -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++
+INCPATH       = -I../eCallV2 -I. -isystem /usr/include/arm-linux-gnueabihf/qt5 -isystem /usr/include/arm-linux-gnueabihf/qt5/QtWidgets -isystem /usr/include/arm-linux-gnueabihf/qt5/QtGui -isystem /usr/include/arm-linux-gnueabihf/qt5/QtSerialPort -isystem /usr/include/arm-linux-gnueabihf/qt5/QtNetwork -isystem /usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I. -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = eCallV21.0.0
 DISTDIR = /home/pi/eCall/Qt_Raspberry/Old_eCallV2/build-eCallV2-Desktop-Debug/.tmp/eCallV21.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGLESv2 -lpthread -latomic 
+LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5SerialPort -lQt5Network -lQt5Core -lGLESv2 -lpthread -latomic 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -51,12 +51,16 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../eCallV2/main.cpp \
-		../eCallV2/mainwindow.cpp qrc_resource.cpp \
-		moc_mainwindow.cpp
+		../eCallV2/mainwindow.cpp \
+		../eCallV2/serialconnection.cpp qrc_resource.cpp \
+		moc_mainwindow.cpp \
+		moc_serialconnection.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		serialconnection.o \
 		qrc_resource.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_serialconnection.o
 DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/common/unix.conf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/common/linux.conf \
@@ -113,7 +117,6 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf \
-		../eCallV2/.qmake.stash \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf \
@@ -133,8 +136,10 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/lex.prf \
-		../eCallV2/eCallV2.pro ../eCallV2/mainwindow.h ../eCallV2/main.cpp \
-		../eCallV2/mainwindow.cpp
+		../eCallV2/eCallV2.pro ../eCallV2/mainwindow.h \
+		../eCallV2/serialconnection.h ../eCallV2/main.cpp \
+		../eCallV2/mainwindow.cpp \
+		../eCallV2/serialconnection.cpp
 QMAKE_TARGET  = eCallV2
 DESTDIR       = 
 TARGET        = eCallV2
@@ -202,7 +207,6 @@ Makefile: ../eCallV2/eCallV2.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf \
@@ -226,6 +230,7 @@ Makefile: ../eCallV2/eCallV2.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-
 		../eCallV2/resource.qrc \
 		/usr/lib/arm-linux-gnueabihf/libQt5Widgets.prl \
 		/usr/lib/arm-linux-gnueabihf/libQt5Gui.prl \
+		/usr/lib/arm-linux-gnueabihf/libQt5SerialPort.prl \
 		/usr/lib/arm-linux-gnueabihf/libQt5Network.prl \
 		/usr/lib/arm-linux-gnueabihf/libQt5Core.prl
 	$(QMAKE) -o Makefile ../eCallV2/eCallV2.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -285,7 +290,6 @@ Makefile: ../eCallV2/eCallV2.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/default_pre.prf:
@@ -309,6 +313,7 @@ Makefile: ../eCallV2/eCallV2.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-
 ../eCallV2/resource.qrc:
 /usr/lib/arm-linux-gnueabihf/libQt5Widgets.prl:
 /usr/lib/arm-linux-gnueabihf/libQt5Gui.prl:
+/usr/lib/arm-linux-gnueabihf/libQt5SerialPort.prl:
 /usr/lib/arm-linux-gnueabihf/libQt5Network.prl:
 /usr/lib/arm-linux-gnueabihf/libQt5Core.prl:
 qmake: FORCE
@@ -327,8 +332,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../eCallV2/resource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../eCallV2/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../eCallV2/main.cpp ../eCallV2/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../eCallV2/mainwindow.h ../eCallV2/serialconnection.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../eCallV2/main.cpp ../eCallV2/mainwindow.cpp ../eCallV2/serialconnection.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../eCallV2/mainwindow.ui $(DISTDIR)/
 
 
@@ -367,14 +372,20 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_serialconnection.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_serialconnection.cpp
 moc_mainwindow.cpp: ../eCallV2/json.hpp \
+		../eCallV2/serialconnection.h \
 		../eCallV2/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/pi/eCall/Qt_Raspberry/Old_eCallV2/build-eCallV2-Desktop-Debug/moc_predefs.h -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/eCall/Qt_Raspberry/Old_eCallV2/eCallV2 -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWidgets -I/usr/include/arm-linux-gnueabihf/qt5/QtGui -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/include/c++/8 -I/usr/include/arm-linux-gnueabihf/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/arm-linux-gnueabihf/8/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include ../eCallV2/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/pi/eCall/Qt_Raspberry/Old_eCallV2/build-eCallV2-Desktop-Debug/moc_predefs.h -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/eCall/Qt_Raspberry/Old_eCallV2/eCallV2 -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWidgets -I/usr/include/arm-linux-gnueabihf/qt5/QtGui -I/usr/include/arm-linux-gnueabihf/qt5/QtSerialPort -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/include/c++/8 -I/usr/include/arm-linux-gnueabihf/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/arm-linux-gnueabihf/8/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include ../eCallV2/mainwindow.h -o moc_mainwindow.cpp
+
+moc_serialconnection.cpp: ../eCallV2/serialconnection.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/pi/eCall/Qt_Raspberry/Old_eCallV2/build-eCallV2-Desktop-Debug/moc_predefs.h -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/eCall/Qt_Raspberry/Old_eCallV2/eCallV2 -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWidgets -I/usr/include/arm-linux-gnueabihf/qt5/QtGui -I/usr/include/arm-linux-gnueabihf/qt5/QtSerialPort -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/include/c++/8 -I/usr/include/arm-linux-gnueabihf/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/arm-linux-gnueabihf/8/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include ../eCallV2/serialconnection.h -o moc_serialconnection.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -398,19 +409,27 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 ####### Compile
 
 main.o: ../eCallV2/main.cpp ../eCallV2/mainwindow.h \
-		../eCallV2/json.hpp
+		../eCallV2/json.hpp \
+		../eCallV2/serialconnection.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../eCallV2/main.cpp
 
 mainwindow.o: ../eCallV2/mainwindow.cpp ../eCallV2/mainwindow.h \
 		../eCallV2/json.hpp \
+		../eCallV2/serialconnection.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../eCallV2/mainwindow.cpp
+
+serialconnection.o: ../eCallV2/serialconnection.cpp ../eCallV2/serialconnection.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o serialconnection.o ../eCallV2/serialconnection.cpp
 
 qrc_resource.o: qrc_resource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resource.o qrc_resource.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_serialconnection.o: moc_serialconnection.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_serialconnection.o moc_serialconnection.cpp
 
 ####### Install
 

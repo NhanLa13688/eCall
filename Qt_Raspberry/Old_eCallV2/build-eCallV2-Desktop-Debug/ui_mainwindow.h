@@ -25,7 +25,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QLabel *label;
     QLabel *speedLabel;
     QLabel *PbatteryLabel;
     QLabel *kmhLabel;
@@ -49,6 +48,8 @@ public:
     QLabel *smartLabel;
     QLabel *sportLabel;
     QLabel *statusLabel;
+    QLabel *serialLabel;
+    QLabel *bkodo;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -57,14 +58,9 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(693, 458);
+        MainWindow->resize(699, 445);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(0, -10, 691, 381));
-        label->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/odo.jpg")));
-        label->setScaledContents(true);
         speedLabel = new QLabel(centralWidget);
         speedLabel->setObjectName(QStringLiteral("speedLabel"));
         speedLabel->setGeometry(QRect(314, 130, 61, 51));
@@ -197,10 +193,44 @@ public:
         statusLabel = new QLabel(centralWidget);
         statusLabel->setObjectName(QStringLiteral("statusLabel"));
         statusLabel->setGeometry(QRect(417, 261, 241, 41));
+        serialLabel = new QLabel(centralWidget);
+        serialLabel->setObjectName(QStringLiteral("serialLabel"));
+        serialLabel->setGeometry(QRect(280, 60, 141, 17));
+        bkodo = new QLabel(centralWidget);
+        bkodo->setObjectName(QStringLiteral("bkodo"));
+        bkodo->setEnabled(true);
+        bkodo->setGeometry(QRect(-3, 1, 691, 371));
+        bkodo->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/odo.jpg")));
+        bkodo->setScaledContents(true);
         MainWindow->setCentralWidget(centralWidget);
+        bkodo->raise();
+        speedLabel->raise();
+        PbatteryLabel->raise();
+        kmhLabel->raise();
+        batteryLabel->raise();
+        PdistanceLabel->raise();
+        distancLabel->raise();
+        fuelLabel->raise();
+        avgspeedLabel->raise();
+        PfuelLabel->raise();
+        PavgspeedLabel->raise();
+        readyLabel->raise();
+        timeLabel->raise();
+        dateLabel->raise();
+        tempLabel->raise();
+        incLabel->raise();
+        decLabel->raise();
+        sosButton->raise();
+        settempLabel->raise();
+        absLabel->raise();
+        ecoLabel->raise();
+        smartLabel->raise();
+        sportLabel->raise();
+        statusLabel->raise();
+        serialLabel->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 693, 28));
+        menuBar->setGeometry(QRect(0, 0, 699, 28));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -217,7 +247,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        label->setText(QString());
         speedLabel->setText(QApplication::translate("MainWindow", "0", nullptr));
         PbatteryLabel->setText(QApplication::translate("MainWindow", "0", nullptr));
         kmhLabel->setText(QApplication::translate("MainWindow", "Km/h", nullptr));
@@ -240,7 +269,9 @@ public:
         ecoLabel->setText(QString());
         smartLabel->setText(QString());
         sportLabel->setText(QString());
-        statusLabel->setText(QString());
+        statusLabel->setText(QApplication::translate("MainWindow", "SOS ..", nullptr));
+        serialLabel->setText(QApplication::translate("MainWindow", "serial uart", nullptr));
+        bkodo->setText(QString());
     } // retranslateUi
 
 };
