@@ -61,10 +61,13 @@ private slots:
 
     // Serial
     void processData(const QByteArray &data);
+    void onDataReceived(const QByteArray &data);
 
 
 private:
     Ui::MainWindow *ui;
+
+    SerialConnection *connection; 
 
     int speed; // Biến để lưu giá trị tốc độ hiện tại
     int battery; // Bien luu gia tri cua battery

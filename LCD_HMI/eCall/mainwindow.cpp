@@ -3,10 +3,12 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QSerialPort>
+#include "serialconnection.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , connection (new SerialConnection(this))
     , speed(0)
     , temp(27)
     , tempMC(45)
@@ -30,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tempMCLabel->setStyleSheet("color: red; font-size: 25px; Bold;");
 
     ui->sosButton->setStyleSheet("background-color: blue; color: black; font-size: 18px;");
+    
+    ui->serialLabel->setText("Waiting .. !");
+
 
     QTcpSocket socket; // Uesr QTcpSocket serial TCP
     socket.connectToHost("192.168.137.61", 65432); // adrr IP and port server
@@ -52,7 +57,21 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->incLabel, &QPushButton::clicked, this, &MainWindow::updateInc);
     connect(ui->decLabel, &QPushButton::clicked, this, &MainWindow::updateDec);
     connect(ui->sosButton, &QPushButton::clicked, this, &MainWindow::handleSOS);
-    
+
+    //Speed
+    //connect(connection, &ConnectionInterface::dataReceived, this, &MainWindow::onDataReceived);
+    connect(connection, &SerialConnection::dataReceived, this, &MainWindow::onDataReceived);
+
+
+    // Tự động mở kết nối khi ứng dụng khởi động
+    if (connection->openConnection("/dev/ttyUSB0", 115200)) {
+        qDebug() << "Connection successfully established!";
+        ui->serialLabel->setText("Connect Done !");
+
+    } else {
+        qDebug() << "Failed to open connection.";
+    }
+
     // start timer
     timer->start(1250);
 
@@ -180,7 +199,6 @@ void MainWindow::delay( int millseconds)
     QTimer::singleShot(millseconds, &loop, &QEventLoop::quit);
     loop.exec();
 }
-
 void MainWindow::handleSOS()
 {
 
@@ -290,7 +308,6 @@ void MainWindow::updateSport()
 
     currentIndex = (currentIndex + 1) % states.size(); // Quay vòng trạng thái
 }
-
 void MainWindow::processData(const QByteArray &data)
 {
     qDebug() << "Raw Data Received:" << data.toHex();
@@ -329,7 +346,6 @@ void MainWindow::processData(const QByteArray &data)
         qDebug() << "Invalid frame!";
     }
 }
-
 float MainWindow::getCPUTemperature() {
     std::ifstream file("/sys/class/thermal/thermal_zone0/temp");
     float tempMC = 0.0;
@@ -339,10 +355,61 @@ float MainWindow::getCPUTemperature() {
     }
     return tempMC;
 }
-
 void MainWindow::updateTemperature() {
     int tempMC = static_cast<int>(getCPUTemperature());
     QString tempText = QString("%1 °C").arg(tempMC);
     ui->tempMCLabel->setText(tempText);
+}
+
+
+void MainWindow::onDataReceived(const QByteArray &data)
+{
+    if (data.size() < 5) {
+        qDebug() << "Invalid frame size:" << data.size();
+        return;
+    }
+
+    // Kiểm tra START_BYTE
+    if (static_cast<uint8_t>(data[0]) != 0xAA) { // START_BYTE phải là 0xAA
+        qDebug() << "Invalid START_BYTE:" << data[0];
+        return;
+    }
+
+    uint8_t id = static_cast<uint8_t>(data[1]); // Lấy ID
+    uint8_t dlc = static_cast<uint8_t>(data[2]); // Lấy DLC
+
+    // Kiểm tra kích thước frame
+    if (data.size() < (3 + dlc + 1)) { // 3 bytes đầu + payload + CRC
+        qDebug() << "Incomplete frame";
+        return;
+    }
+
+    // Lấy Payload
+    QByteArray payload = data.mid(3, dlc);
+
+    // Kiểm tra CRC
+    uint8_t received_crc = static_cast<uint8_t>(data[3 + dlc]);
+    uint8_t calculated_crc = 0;
+    for (int i = 0; i < (3 + dlc); i++) {
+        calculated_crc ^= static_cast<uint8_t>(data[i]);
+    }
+
+    if (received_crc != calculated_crc) {
+        qDebug() << "CRC mismatch!";
+        return;
+    }
+
+    // Xử lý dữ liệu theo ID
+    if (id == 0x01 && dlc == 2) { // ID = 0x01: Tốc độ
+        int speed = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+        ui->serialLabel->setText(QString("Speed: %1 km/h").arg(speed));
+        qDebug() << "Speed:" << speed;
+    } else if (id == 0x02 && dlc == 2) { // ID = 0x02: Nhiệt độ
+        int temperature = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+        //ui->serialLabel->setText(QString("Temp: %1 °C").arg(temperature));
+        qDebug() << "Temperature:" << temperature;
+    } else {
+        qDebug() << "Unknown ID:" << id;
+    }
 }
 
