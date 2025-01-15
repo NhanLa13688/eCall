@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[22];
-    char stringdata0[241];
+    QByteArrayData data[21];
+    char stringdata0[229];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,36 +33,34 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 11), // "updateSpeed"
-QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 14), // "updatePbattery"
-QT_MOC_LITERAL(4, 39, 15), // "updatePdistance"
-QT_MOC_LITERAL(5, 55, 11), // "updatePfuel"
-QT_MOC_LITERAL(6, 67, 15), // "updatePavgspeed"
-QT_MOC_LITERAL(7, 83, 11), // "updateReady"
-QT_MOC_LITERAL(8, 95, 10), // "updateTime"
-QT_MOC_LITERAL(9, 106, 10), // "updateDate"
-QT_MOC_LITERAL(10, 117, 9), // "updateInc"
-QT_MOC_LITERAL(11, 127, 9), // "updateDec"
-QT_MOC_LITERAL(12, 137, 9), // "handleSOS"
-QT_MOC_LITERAL(13, 147, 9), // "updateABS"
-QT_MOC_LITERAL(14, 157, 9), // "updateECO"
-QT_MOC_LITERAL(15, 167, 11), // "updateSmart"
-QT_MOC_LITERAL(16, 179, 11), // "updateSport"
-QT_MOC_LITERAL(17, 191, 5), // "delay"
-QT_MOC_LITERAL(18, 197, 11), // "millseconds"
-QT_MOC_LITERAL(19, 209, 11), // "processData"
-QT_MOC_LITERAL(20, 221, 4), // "data"
-QT_MOC_LITERAL(21, 226, 14) // "onDataReceived"
+QT_MOC_LITERAL(1, 11, 14), // "updatePbattery"
+QT_MOC_LITERAL(2, 26, 0), // ""
+QT_MOC_LITERAL(3, 27, 15), // "updatePdistance"
+QT_MOC_LITERAL(4, 43, 11), // "updatePfuel"
+QT_MOC_LITERAL(5, 55, 15), // "updatePavgspeed"
+QT_MOC_LITERAL(6, 71, 11), // "updateReady"
+QT_MOC_LITERAL(7, 83, 10), // "updateTime"
+QT_MOC_LITERAL(8, 94, 10), // "updateDate"
+QT_MOC_LITERAL(9, 105, 9), // "updateInc"
+QT_MOC_LITERAL(10, 115, 9), // "updateDec"
+QT_MOC_LITERAL(11, 125, 9), // "handleSOS"
+QT_MOC_LITERAL(12, 135, 9), // "updateABS"
+QT_MOC_LITERAL(13, 145, 9), // "updateECO"
+QT_MOC_LITERAL(14, 155, 11), // "updateSmart"
+QT_MOC_LITERAL(15, 167, 11), // "updateSport"
+QT_MOC_LITERAL(16, 179, 5), // "delay"
+QT_MOC_LITERAL(17, 185, 11), // "millseconds"
+QT_MOC_LITERAL(18, 197, 11), // "processData"
+QT_MOC_LITERAL(19, 209, 4), // "data"
+QT_MOC_LITERAL(20, 214, 14) // "onDataReceived"
 
     },
-    "MainWindow\0updateSpeed\0\0updatePbattery\0"
-    "updatePdistance\0updatePfuel\0updatePavgspeed\0"
-    "updateReady\0updateTime\0updateDate\0"
-    "updateInc\0updateDec\0handleSOS\0updateABS\0"
-    "updateECO\0updateSmart\0updateSport\0"
-    "delay\0millseconds\0processData\0data\0"
-    "onDataReceived"
+    "MainWindow\0updatePbattery\0\0updatePdistance\0"
+    "updatePfuel\0updatePavgspeed\0updateReady\0"
+    "updateTime\0updateDate\0updateInc\0"
+    "updateDec\0handleSOS\0updateABS\0updateECO\0"
+    "updateSmart\0updateSport\0delay\0millseconds\0"
+    "processData\0data\0onDataReceived"
 };
 #undef QT_MOC_LITERAL
 
@@ -72,7 +70,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -80,24 +78,23 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  104,    2, 0x08 /* Private */,
-       3,    0,  105,    2, 0x08 /* Private */,
-       4,    0,  106,    2, 0x08 /* Private */,
-       5,    0,  107,    2, 0x08 /* Private */,
-       6,    0,  108,    2, 0x08 /* Private */,
-       7,    0,  109,    2, 0x08 /* Private */,
-       8,    0,  110,    2, 0x08 /* Private */,
-       9,    0,  111,    2, 0x08 /* Private */,
-      10,    0,  112,    2, 0x08 /* Private */,
-      11,    0,  113,    2, 0x08 /* Private */,
-      12,    0,  114,    2, 0x08 /* Private */,
-      13,    0,  115,    2, 0x08 /* Private */,
-      14,    0,  116,    2, 0x08 /* Private */,
-      15,    0,  117,    2, 0x08 /* Private */,
-      16,    0,  118,    2, 0x08 /* Private */,
-      17,    1,  119,    2, 0x08 /* Private */,
-      19,    1,  122,    2, 0x08 /* Private */,
-      21,    1,  125,    2, 0x08 /* Private */,
+       1,    0,   99,    2, 0x08 /* Private */,
+       3,    0,  100,    2, 0x08 /* Private */,
+       4,    0,  101,    2, 0x08 /* Private */,
+       5,    0,  102,    2, 0x08 /* Private */,
+       6,    0,  103,    2, 0x08 /* Private */,
+       7,    0,  104,    2, 0x08 /* Private */,
+       8,    0,  105,    2, 0x08 /* Private */,
+       9,    0,  106,    2, 0x08 /* Private */,
+      10,    0,  107,    2, 0x08 /* Private */,
+      11,    0,  108,    2, 0x08 /* Private */,
+      12,    0,  109,    2, 0x08 /* Private */,
+      13,    0,  110,    2, 0x08 /* Private */,
+      14,    0,  111,    2, 0x08 /* Private */,
+      15,    0,  112,    2, 0x08 /* Private */,
+      16,    1,  113,    2, 0x08 /* Private */,
+      18,    1,  116,    2, 0x08 /* Private */,
+      20,    1,  119,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -114,10 +111,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   18,
-    QMetaType::Void, QMetaType::QByteArray,   20,
-    QMetaType::Void, QMetaType::QByteArray,   20,
+    QMetaType::Void, QMetaType::Int,   17,
+    QMetaType::Void, QMetaType::QByteArray,   19,
+    QMetaType::Void, QMetaType::QByteArray,   19,
 
        0        // eod
 };
@@ -128,24 +124,23 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->updateSpeed(); break;
-        case 1: _t->updatePbattery(); break;
-        case 2: _t->updatePdistance(); break;
-        case 3: _t->updatePfuel(); break;
-        case 4: _t->updatePavgspeed(); break;
-        case 5: _t->updateReady(); break;
-        case 6: _t->updateTime(); break;
-        case 7: _t->updateDate(); break;
-        case 8: _t->updateInc(); break;
-        case 9: _t->updateDec(); break;
-        case 10: _t->handleSOS(); break;
-        case 11: _t->updateABS(); break;
-        case 12: _t->updateECO(); break;
-        case 13: _t->updateSmart(); break;
-        case 14: _t->updateSport(); break;
-        case 15: _t->delay((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 16: _t->processData((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
-        case 17: _t->onDataReceived((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
+        case 0: _t->updatePbattery(); break;
+        case 1: _t->updatePdistance(); break;
+        case 2: _t->updatePfuel(); break;
+        case 3: _t->updatePavgspeed(); break;
+        case 4: _t->updateReady(); break;
+        case 5: _t->updateTime(); break;
+        case 6: _t->updateDate(); break;
+        case 7: _t->updateInc(); break;
+        case 8: _t->updateDec(); break;
+        case 9: _t->handleSOS(); break;
+        case 10: _t->updateABS(); break;
+        case 11: _t->updateECO(); break;
+        case 12: _t->updateSmart(); break;
+        case 13: _t->updateSport(); break;
+        case 14: _t->delay((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->processData((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
+        case 16: _t->onDataReceived((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -180,13 +175,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 17)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 17;
     }
     return _id;
 }

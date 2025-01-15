@@ -24,10 +24,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->timeLabel->setStyleSheet("color: white;");
     ui->dateLabel->setStyleSheet("color: white;");
     ui->readyLabel->setStyleSheet("color: green;");
-
+    
+    // Nhiệt độ máy lạnh
     ui->tempLabel->setText(QString::number(temp) + " °C");
     ui->tempLabel->setStyleSheet("color: white; font-size: 18px;");
 
+    // Nhiệt độ máy
     ui->tempMCLabel->setText(QString::number(tempMC) + " °C");
     ui->tempMCLabel->setStyleSheet("color: red; font-size: 25px; Bold;");
 
@@ -35,11 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     
     ui->serialLabel->setText("Waiting .. !");
 
-
     QTcpSocket socket; // Uesr QTcpSocket serial TCP
     socket.connectToHost("192.168.137.61", 65432); // adrr IP and port server
 
-    connect(timer, &QTimer::timeout, this, &MainWindow::updateSpeed);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePbattery);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePdistance);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePfuel);
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &MainWindow::updateSport);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateTime);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateDate);
-    connect(timer, &QTimer::timeout, this, &MainWindow::updateTemperature);
+    //connect(timer, &QTimer::timeout, this, &MainWindow::updateTemperature);
 
     //connect(ui->sosButton, &QPushButton::clicked, this, &MainWindow::changeButtonColor);
     connect(ui->incLabel, &QPushButton::clicked, this, &MainWindow::updateInc);
@@ -64,11 +64,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Tự động mở kết nối khi ứng dụng khởi động
-    if (connection->openConnection("/dev/ttyUSB0", 115200)) {
+    if (connection->openConnection("/dev/ttyUSB0", 115200)) 
+    {
         qDebug() << "Connection successfully established!";
         ui->serialLabel->setText("Connect Done !");
 
-    } else {
+    } 
+    else 
+    {
         qDebug() << "Failed to open connection.";
     }
 
@@ -82,19 +85,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateSpeed()
-{
-    speed += 1;
-    if (speed > 250)
-        speed = 0;
-
-    ui->speedLabel->setText(QString::number(speed));
-    ui->speedLabel->setStyleSheet("color: cyan; font-size: 33px;");
-
-    ui->kmhLabel->setStyleSheet("color: cyan;");
-
-    ui->speedLabel->setAlignment(Qt::AlignCenter);
-}
 void MainWindow::updatePbattery()
 {
     battery += 1;
@@ -111,7 +101,6 @@ void MainWindow::updatePdistance()
     distance += 1;
     if (distance > 10000)
         distance = 0;
-
 
     ui->PdistanceLabel->setText(QString::number(distance)+" KM");
     ui->PdistanceLabel->setStyleSheet("color: white; font-size: 10px;");
@@ -160,19 +149,18 @@ void MainWindow::updateTime()
     QTime currentTime = QTime::currentTime();
     QString timeString = currentTime.toString("HH:mm:ss");
 
-
     ui->timeLabel->setText(timeString);
     ui->timeLabel->setAlignment(Qt::AlignCenter);
     ui->timeLabel->setStyleSheet("color: white; font-size: 18px; ");
 }
 void MainWindow::updateDate()
 {
-       QDateTime currentDateTime = QDateTime::currentDateTime();
-       QString dateString = currentDateTime.date().toString("dd/MM/yyyy");
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    QString dateString = currentDateTime.date().toString("dd/MM/yyyy");
 
-       ui->dateLabel->setText(dateString);
-       ui->dateLabel->setAlignment(Qt::AlignCenter);
-       ui->dateLabel->setStyleSheet("color: white; font-size: 18px;");
+    ui->dateLabel->setText(dateString);
+    ui->dateLabel->setAlignment(Qt::AlignCenter);
+    ui->dateLabel->setStyleSheet("color: white; font-size: 18px;");
 }
 void MainWindow::updateInc()
 {
@@ -202,19 +190,18 @@ void MainWindow::delay( int millseconds)
 void MainWindow::handleSOS()
 {
 
-        qDebug() << "Button --> SOS";
-        ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
+    qDebug() << "Button --> SOS";
+    ui->sosButton->setStyleSheet("background-color: red; color: red; font-size: 18px;");
 
-       QTcpSocket socket;
-       socket.connectToHost("192.168.137.61", 65432);
-       if (!socket.waitForConnected(3000))
-       {
-
-                qDebug() << "Failed to connect to server.";
-                ui->statusLabel->setText("FAILED TO CONNECT!");
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
-                return;
-       }
+    QTcpSocket socket;
+    socket.connectToHost("192.168.137.61", 65432);
+    if (!socket.waitForConnected(3000))
+    {
+        qDebug() << "Failed to connect to server.";
+        ui->statusLabel->setText("FAILED TO CONNECT!");
+        ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
+        return;
+    }
 
        // Send JSON COMMAN to SERVER
        QJsonObject command;
@@ -223,37 +210,37 @@ void MainWindow::handleSOS()
        QByteArray data = doc.toJson();
 
        socket.write(data);
-       if (!socket.waitForBytesWritten(3000))
-       {
-                qDebug() << "Failed to send data to server.";
-                ui->statusLabel->setText("SOS SEND FAILED !");
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
+    if (!socket.waitForBytesWritten(3000))
+    {
+        qDebug() << "Failed to send data to server.";
+        ui->statusLabel->setText("SOS SEND FAILED !");
+        ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
 
-       }
-       else
-       {
-                qDebug() << "SOS command sent to server.";
-                ui->statusLabel->setText("SOS SEND DONE !");
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
+    }
+    else
+    {
+        qDebug() << "SOS command sent to server.";
+        ui->statusLabel->setText("SOS SEND DONE");
+        ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
 
-       }
+    }
 
-       if (socket.waitForReadyRead(3000))
-       {
-                QByteArray response = socket.readAll();
-                std::string responseStr = response.toStdString(); // Chuyển đổi sang std::string
+    if (socket.waitForReadyRead(3000))
+    {
+        QByteArray response = socket.readAll();
+        std::string responseStr = response.toStdString(); // Chuyển đổi sang std::string
 
-                qDebug() << "Response from server:" << QString::fromStdString(responseStr);
+        qDebug() << "Response from server:" << QString::fromStdString(responseStr);
 
-                ui->statusLabel->setText(QString::fromStdString(responseStr));
-                ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
-        }
-        else
-        {
-                   qDebug() << "No response from server.";
-                   ui->statusLabel->setText("No response from PSAP !");
-                   ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
-        }
+        ui->statusLabel->setText(QString::fromStdString(responseStr));
+        ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
+    }
+    else
+    {
+        qDebug() << "No response from server.";
+        ui->statusLabel->setText("No response from PSAP !");
+        ui->statusLabel->setStyleSheet("color: red; font-size: 16px; bold;");
+    }
 
         socket.disconnectFromHost();
         delay(1000);
@@ -328,6 +315,7 @@ void MainWindow::processData(const QByteArray &data)
             }
 
             if (calculated_crc == crc) {
+                
                 // Phân tích payload dựa trên ID
                 if (id == 0x01) { // Speed
                     int speed = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
@@ -336,13 +324,19 @@ void MainWindow::processData(const QByteArray &data)
                    // int temperature = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
                    // temperatureLabel->setText(QString("Temperature: %1 °C").arg(temperature));
                 }
-            } else {
+            } 
+            else 
+            {
                 qDebug() << "CRC mismatch!";
             }
-        } else {
+        } 
+        else 
+        {
             qDebug() << "Incomplete frame!";
         }
-    } else {
+    } 
+    else
+    {
         qDebug() << "Invalid frame!";
     }
 }
@@ -355,11 +349,11 @@ float MainWindow::getCPUTemperature() {
     }
     return tempMC;
 }
-void MainWindow::updateTemperature() {
-    int tempMC = static_cast<int>(getCPUTemperature());
-    QString tempText = QString("%1 °C").arg(tempMC);
-    ui->tempMCLabel->setText(tempText);
-}
+// void MainWindow::updateTemperature() {
+//     int tempMC = static_cast<int>(getCPUTemperature());
+//     QString tempText = QString("%1 °C").arg(tempMC);
+//     ui->tempMCLabel->setText(tempText);
+// }
 
 
 void MainWindow::onDataReceived(const QByteArray &data)
@@ -400,16 +394,29 @@ void MainWindow::onDataReceived(const QByteArray &data)
     }
 
     // Xử lý dữ liệu theo ID
-    if (id == 0x01 && dlc == 2) { // ID = 0x01: Tốc độ
+    if (id == 0x01 && dlc == 2) 
+    { // ID = 0x01: Tốc độ
         int speed = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
-        ui->serialLabel->setText(QString("Speed: %1 km/h").arg(speed));
+        ui->serialLabel->setText(QString("%1 km/h").arg(speed));
+        ui->speedLabel->setText(QString::number(speed));
+        ui->speedLabel->setStyleSheet("color: cyan; font-size: 33px;");
+        ui->kmhLabel->setStyleSheet("color: cyan;");
+        ui->speedLabel->setAlignment(Qt::AlignCenter);
         qDebug() << "Speed:" << speed;
-    } else if (id == 0x02 && dlc == 2) { // ID = 0x02: Nhiệt độ
-        int temperature = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
-        //ui->serialLabel->setText(QString("Temp: %1 °C").arg(temperature));
-        qDebug() << "Temperature:" << temperature;
-    } else {
+
+    } 
+    else if (id == 0x02 && dlc == 2)
+    { // ID = 0x02: Nhiệt độ
+        int tempMC = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+        ui->serialLabel->setText(QString("Temp: %1 °C").arg(tempMC));
+        ui->tempMCLabel->setText(QString::number(tempMC) + " °C");
+        ui->tempMCLabel->setStyleSheet("color: red; font-size: 25px; Bold;");
+        qDebug() << "Temperature:" << tempMC;
+    }
+    else 
+    {
         qDebug() << "Unknown ID:" << id;
     }
 }
+
 
