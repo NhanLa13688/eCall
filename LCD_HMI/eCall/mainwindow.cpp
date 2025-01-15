@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     QTcpSocket socket; // Uesr QTcpSocket serial TCP
     socket.connectToHost("192.168.137.61", 65432); // adrr IP and port server
 
-    connect(timer, &QTimer::timeout, this, &MainWindow::updatePbattery);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePdistance);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePfuel);
     connect(timer, &QTimer::timeout, this, &MainWindow::updatePavgspeed);
@@ -62,13 +61,11 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(connection, &ConnectionInterface::dataReceived, this, &MainWindow::onDataReceived);
     connect(connection, &SerialConnection::dataReceived, this, &MainWindow::onDataReceived);
 
-
     // Tự động mở kết nối khi ứng dụng khởi động
     if (connection->openConnection("/dev/ttyUSB0", 115200)) 
     {
         qDebug() << "Connection successfully established!";
         ui->serialLabel->setText("Connect Done !");
-
     } 
     else 
     {
@@ -85,17 +82,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updatePbattery()
-{
-    battery += 1;
-    if (battery > 100)
-        battery = 0;
-
-    ui->PbatteryLabel->setText(QString::number(battery)+"%");
-    ui->PbatteryLabel->setStyleSheet("color: white; font-size: 33px;");
-    ui->batteryLabel->setStyleSheet("color: white; ");
-    ui->PbatteryLabel->setAlignment(Qt::AlignCenter);
-}
 void MainWindow::updatePdistance()
 {
     distance += 1;
@@ -349,12 +335,6 @@ float MainWindow::getCPUTemperature() {
     }
     return tempMC;
 }
-// void MainWindow::updateTemperature() {
-//     int tempMC = static_cast<int>(getCPUTemperature());
-//     QString tempText = QString("%1 °C").arg(tempMC);
-//     ui->tempMCLabel->setText(tempText);
-// }
-
 
 void MainWindow::onDataReceived(const QByteArray &data)
 {
@@ -413,9 +393,18 @@ void MainWindow::onDataReceived(const QByteArray &data)
         ui->tempMCLabel->setStyleSheet("color: red; font-size: 25px; Bold;");
         qDebug() << "Temperature:" << tempMC;
     }
-    else 
+    else if(id == 0x03 && dlc == 2)
+    { // ID = 0x03: Battery
+        int battery = (static_cast<uint8_t>(payload[0]) << 8) | static_cast<uint8_t>(payload[1]);
+        ui->PbatteryLabel->setText(QString::number(battery)+"%");
+        ui->PbatteryLabel->setStyleSheet("color: white; font-size: 33px;");
+        ui->batteryLabel->setStyleSheet("color: white; ");
+        ui->PbatteryLabel->setAlignment(Qt::AlignCenter);
+        qDebug() << "Battery:" << battery;
+    }
+    else
     {
-        qDebug() << "Unknown ID:" << id;
+        qDebug() << "ID ERROR !!";
     }
 }
 

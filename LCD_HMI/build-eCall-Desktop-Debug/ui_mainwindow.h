@@ -200,7 +200,7 @@ public:
         bkodo = new QLabel(centralWidget);
         bkodo->setObjectName(QString::fromUtf8("bkodo"));
         bkodo->setEnabled(true);
-        bkodo->setGeometry(QRect(-3, 1, 691, 371));
+        bkodo->setGeometry(QRect(-3, -9, 701, 381));
         bkodo->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/odo.jpg")));
         bkodo->setScaledContents(true);
         tempMCLabel = new QLabel(centralWidget);

@@ -41,7 +41,6 @@ public:
 
 private slots:
 
-    void updatePbattery();
     void updatePdistance();
     void updatePfuel();
     void updatePavgspeed();

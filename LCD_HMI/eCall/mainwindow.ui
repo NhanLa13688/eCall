@@ -513,9 +513,9 @@
     <property name="geometry">
      <rect>
       <x>-3</x>
-      <y>1</y>
-      <width>691</width>
-      <height>371</height>
+      <y>-9</y>
+      <width>701</width>
+      <height>381</height>
      </rect>
     </property>
     <property name="text">
