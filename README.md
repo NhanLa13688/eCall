@@ -112,3 +112,11 @@ For inquiries or collaboration, please reach out at **[lathanhnhan20797@gmail.co
 ## 📄 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+
+💖 If you find this software useful and want to support the author, consider donating:
+
+- Momo: [0969168340]
+
+
+All contributions are greatly appreciated and help sustain project development! 🚀
+
