@@ -115,8 +115,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 💖 If you find this software useful and want to support the author, consider donating:
 
-- Momo: [0969168340]
-
+- Momo: 0969168340
 
 All contributions are greatly appreciated and help sustain project development! 🚀
 
